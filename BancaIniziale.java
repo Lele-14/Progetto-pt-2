@@ -1,6 +1,8 @@
 import java.util.Random;
 import java.util.Scanner;
 
+//LAVORO INIZIALE FORNITO DA UN'ALTRA COPPIA SU CUI NOI ABBIAMO LAVORATO
+
 public class ApplicazioneBanca {
 
 	/**
