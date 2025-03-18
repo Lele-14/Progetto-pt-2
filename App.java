@@ -2,9 +2,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class App {
-
-
-
     /**
      * Calcola un importo casuale compreso tra un minimo e un massimo.
      *
