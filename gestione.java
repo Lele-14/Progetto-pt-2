@@ -77,10 +77,15 @@ public class gestione {
         return utente;
     }
 
-    public static void main(String[] args) {
+    // ************************************************************************************************************************************************
+    // */
+
+    public static void main(String[] args) throws Exception {
         fileUtenti fileUser = new fileUtenti();
 
-        Banca banca = new Banca("Tonolo & Ceaglei BANK");
+        Banca banca = new Banca("Lele & Artur BANK");
+
+        Utente utente;
 
         String mesi[] = new String[12];
         assegnaMesi(mesi);
@@ -89,32 +94,73 @@ public class gestione {
         String password;
         int contatoriMesi = 0, anno = 2025;
         int ch = 1;
-        String azione="";
+        String azione = "";
 
-        while (ch != 0) {
+        do {
             System.out.println(mesi[contatoriMesi] + " " + anno);
             String transazione = "TRANSAZIONE:\n" + mesi[contatoriMesi] + " " + anno + "\n";
+            menu.menu1(banca.getNome());
+            System.out.print("Fai la tua scelta --> ");
+            ch = (int) Input.leggiIntero(Input.leggiString());
+            while (ch < 0 || ch > 7) {
+                System.out.print("Attenzione. Reinserire valori tra 0 e 7 --> ");
+                ch = (int) Input.leggiIntero(Input.leggiString());
+            }
             switch (ch) {
                 case 1: {
-                    System.out.println("1. Iscriviti");
-                    Utente utente = LoadUtente();
-                    if (banca.addUtente(utente)) {
-                        System.out.println("Utente iscritto con successo");
-                        try {
-                            File gestioneUtente = fileUser.creaFileUtente(utente);
-                            fileUser.aggiungiFile(gestioneUtente);
-                            // fileUser.creaFileUtente(utente);
+                    System.out.println("1. Iscriviti o ritrova le tue credenziali");
+                    menu.menu4();
+                    System.out.print("Fai la tua scelta --> ");
+                    ch = (int) Input.leggiIntero(Input.leggiString());
+                    while (ch < 1 || ch > 2) {
+                        System.out.print("Attenzione. Reinserire valori tra 1 e 2 --> ");
+                        ch = (int) Input.leggiIntero(Input.leggiString());
+                    }
+                    switch (ch) {
+                        case 1: {
+                            System.out.println("1. Iscriviti");
+                            utente = LoadUtente();
+                            if (banca.addUtente(utente)) {
+                                System.out.println("Utente iscritto con successo");
+                                try {
+                                    File gestioneUtente = fileUser.creaFileUtente(utente);
+                                    fileUser.aggiungiFile(gestioneUtente);
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+
+                            } else {
+                                System.out.println("Utente gia' presente");
+                            }
+                            break;
+
                         }
+                        case 2: {
+                            System.out.println("2) Accedi attraverso file");
+                            System.out.print(
+                                    "Inserisci il nome del file. Ricorda che devi mettere ''congnome'' ''_'' ''nome'' --> ");
+                            String nomeFile = Input.leggiString();
+                            //nomeFile = nomeFile + ".txt";
+                            utente = banca.prelevaDaFile(nomeFile, nomeFile+ ".txt");
 
-                    } else {
-                        System.out.println("Utente gia' presente");
+                            if (utente == null) {
+                                System.out.println("ATTENZIONE!!! Utente insesistente");
+                            } else {
+                                System.out.println("Devi cambiare password");
+                                password = logIn();
+                                utente.setPassword(password);
+                                if (banca.addUtente(utente)) {
+                                    System.out.println("Utente accesso con successo");
+                                }
+                            }
+                            break;
+
+                        }
                     }
                     break;
-
                 }
+
                 case 2: {
                     System.out.println("2. Accedi e visualizza");
 
@@ -146,7 +192,7 @@ public class gestione {
                     }
                     if (banca.Deposito(deposito, password)) {
                         System.out.println("Deposito avvenuto con successo");
-                        azione = azione+transazione + "Deposito: " + deposito;
+                        azione = azione + transazione + "Deposito: " + deposito;
                         try {
                             File gestioneUtente = fileUser.creaFileUtente(banca.getUtente(banca.findPersona(password)));
                             fileUser.aggiungiFile(gestioneUtente);
@@ -181,11 +227,11 @@ public class gestione {
 
                     if (banca.Prelievo(prelievo, password, banca.findPersona(password))) {
                         System.out.println("Prelievo avvenuto con successo");
-                        azione = azione+transazione + "Prelievo: " + prelievo;
+                        azione = azione + transazione + "Prelievo: " + prelievo+"\n";
                         try {
                             File gestioneUtente = fileUser.creaFileUtente(banca.getUtente(banca.findPersona(password)));
                             fileUser.aggiungiFile(gestioneUtente);
-                             //fileUser.creaFileUtente(utente);
+                            // fileUser.creaFileUtente(utente);
 
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -224,14 +270,14 @@ public class gestione {
                         case 2: {
                             System.out.println("2)Media (Trimestrale)");
                             contatoriMesi = contatoriMesi + 3;
-                            banca.avanzamentoMese(100*3);
+                            banca.avanzamentoMese(100 * 3);
                             break;
                         }
 
                         case 3: {
                             System.out.println("3)Lunga (Semestrale)\n");
                             contatoriMesi = contatoriMesi + 6;
-                            banca.avanzamentoMese(100*6);
+                            banca.avanzamentoMese(100 * 6);
                             break;
                         }
 
@@ -251,7 +297,8 @@ public class gestione {
                     System.out.print("Inserire la quota da investire--> ");
                     double quotaInvestimento = Input.leggiDouble(Input.leggiString());
 
-                    while (quotaInvestimento < 1 || quotaInvestimento > banca.getUtente(banca.findPersona(password)).getContoBancario()) {
+                    while (quotaInvestimento < 1
+                            || quotaInvestimento > banca.getUtente(banca.findPersona(password)).getContoBancario()) {
                         System.out.print("ATTENZIONE! Valori non corretti. Reinserire la quota da investire--> ");
                         quotaInvestimento = Input.leggiDouble(Input.leggiString());
                     }
@@ -277,7 +324,6 @@ public class gestione {
                             break;
                         }
 
-
                     }
                     if (guadagno > quotaInvestimento) {
                         System.out.println("Investimento andato a buon fine!!!");
@@ -290,7 +336,7 @@ public class gestione {
                     }
 
                     azione = transazione + "Investimento: " + quotaInvestimento;
-                    azione=azione+"\tGuadagnato: "+guadagno;
+                    azione = azione + "\tGuadagnato: " + guadagno;
 
                     fileUser.appendToFile(banca.getUtente(banca.findPersona(password)), azione);
 
@@ -331,15 +377,8 @@ public class gestione {
                 contatoriMesi = 0;
                 anno = anno + 1;
             }
-            menu.menu1(banca.getNome());
-            System.out.print("Fai la tua scelta --> ");
-            ch = (int) Input.leggiIntero(Input.leggiString());
-            while (ch < 0 || ch > 7) {
-                System.out.print("Attenzione. Reinserire valori tra 0 e 7 --> ");
-                ch = (int) Input.leggiIntero(Input.leggiString());
-            }
 
-        }
+        } while (ch != 0);
 
     }
 }
