@@ -57,6 +57,7 @@ public class Menu {
     }
 
 
+    /*
     public int scelta(int x) {
         Scanner input = new Scanner(System.in);
         int scelta = 10;
@@ -100,5 +101,6 @@ public class Menu {
         return scelta;
         
     }
+    */
 
 }
