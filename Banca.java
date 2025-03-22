@@ -21,7 +21,7 @@ public class Banca {
     public boolean addUtente(Utente x) {
 
         for (int i = 0; i < utenti.size(); i = i + 1) {
-            if (utenti.get(i).getPassword().equalsIgnoreCase(x.getPassword())) {
+            if (utenti.get(i).getPassword().equals(x.getPassword())) {
                 return false;
             }
         }
