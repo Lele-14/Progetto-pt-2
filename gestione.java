@@ -83,7 +83,7 @@ public class gestione {
     public static void main(String[] args) throws Exception {
         fileUtenti fileUser = new fileUtenti();
 
-        Banca banca = new Banca("Lele & Artur BANK");
+        Banca banca = new Banca("Lele & Artur BANK, altro che intesa San Paolo");
 
         Utente utente;
 
