@@ -63,6 +63,8 @@ public class Banca {
         return true;
     }
 
+    
+    //passowrd inserita si può rimuovere...
     public boolean Prelievo(double prelievo, String passwordInserita, int persona) {
 
         if (utenti.isEmpty() || persona == -1) {
