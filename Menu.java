@@ -57,7 +57,7 @@ public class Menu {
     }
 
 
-    /*public int scelta(int x) {
+    public int scelta(int x) {
         Scanner input = new Scanner(System.in);
         int scelta = 10;
         String stringa;
@@ -99,6 +99,6 @@ public class Menu {
         input.close();
         return scelta;
         
-    }*/
+    }
 
 }
