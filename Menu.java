@@ -1,4 +1,4 @@
-import java.util.Scanner;
+//import java.util.Scanner;
 
 public class Menu {
 
@@ -7,12 +7,17 @@ public class Menu {
      * Mostra il menu principale con le opzioni disponibili per la gestione del
      * conto.
      */
-    public static void menu1() {
+    public void menu1(String nome) {
+        System.out.println("------------- BANCA "+nome+" -------------\n");
         System.out.println("***Scegli l'opzione***\n");
-        System.out.println("1)Preleva il denaro");
-        System.out.println("2)Deposita il denaro");
-        System.out.println("3)Investi del denaro\n");
-        System.out.println("0)ESCI e vai al mese successivo");
+        System.out.println("1. Iscriviti o ritrova le tue credenziali");
+        System.out.println("2. Accedi e visualizza");
+        System.out.println("3)Deposita il denaro");
+        System.out.println("4)Preleva il denaro");
+        System.out.println("5)Investi del denaro");
+        System.out.println("6)Vai al mese successivo");
+        System.out.println("7)Disdetta dalla banca");
+        System.out.println("0)ESCI *** ");
         System.out.println("---> ");
     }
 
@@ -20,7 +25,7 @@ public class Menu {
      * Mostra il menu per scegliere la durata dell'investimento.
      */
 
-    private void menu2() {
+     public void menu2() {
         System.out.println("****INVESTIMENTO****");
         System.out.println("***Scegli la durata***\n");
         System.out.println("1)Breve (Mensile)");
@@ -35,7 +40,7 @@ public class Menu {
      * dell'investimento.
      */
 
-    private void menu3() {
+    public void menu3() {
         System.out.println("****INVESTIMENTO****");
         System.out.println("***Scegli il rischio e il guadagno***\n");
         System.out.println("1)Basso rischio e basso guadagno");
@@ -46,7 +51,13 @@ public class Menu {
     }
 
 
-    public int scelta(int x) {
+    public void menu4() {
+        System.out.println("1) Iscriviti");
+        System.out.println("2) Accedi attraverso file");
+    }
+
+
+    /*public int scelta(int x) {
         Scanner input = new Scanner(System.in);
         int scelta = 10;
         String stringa;
@@ -85,7 +96,9 @@ public class Menu {
                 }
             }
         } while (!ok);
+        input.close();
         return scelta;
-    }
+        
+    }*/
 
 }

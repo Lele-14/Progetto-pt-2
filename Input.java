@@ -1,30 +1,46 @@
 import java.util.Scanner;
 
 public class Input {
-    public double leggiDouble(String x) {
-        Scanner input = new Scanner(System.in);
+    
+    public static Scanner input = new Scanner(System.in);
+
+    public static double leggiDouble(String x) {
+        
         double d = 0;
-        String stringa;
-        boolean ok;
-        do {
-            ok = true;
-            System.out.print(x);
-            stringa = input.nextLine();
-            System.out.print("\n");
+   
             try {
-                d = Double.parseDouble(stringa);
+                d = Double.parseDouble(x);
             } catch (NumberFormatException e) {
-                ok = false;
                 System.out.println("ERRORE! Formato non valido. Reinserire");
             }
 
-            if (ok) {
-                if (d < 0) {
-                    ok = false;
-                    System.out.println("ERRORE! Valore non valido. Reinserire");
-                }
-            }
-        } while (!ok);
         return d;
     }
+
+
+
+
+    public static double leggiIntero(String x) {
+        
+        int i = -1;
+            try {
+                i = (int)Integer.parseInt(x);
+            } catch (NumberFormatException e) {
+                
+                System.out.println("ERRORE! Formato non valido. Reinserire");
+            }
+
+        return i;
+    }
+
+
+
+
+    public static String leggiString () {
+        String s="";
+        s=input.nextLine();
+        return s;
+
+    }
+
 }
