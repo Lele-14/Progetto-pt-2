@@ -32,7 +32,7 @@ public class Banca {
 
     public boolean removeUtente(int persona) {
 
-        if (utenti.isEmpty()) {
+        if (utenti.isEmpty() || persona<0 || persona >= utenti.size()) {
             return false;
         }
 
