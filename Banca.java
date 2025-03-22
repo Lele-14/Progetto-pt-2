@@ -163,6 +163,20 @@ public class Banca {
     }
         return null;
     }
+
+    //elenco utenti della banca
+    public void toStringBanca() {
+        System.out.println("Banca: " + nome);
+        System.out.println("Utenti registrati:");
+    
+        if (utenti.isEmpty()) {
+            System.out.println("Nessun utente registrato.");
+        } else {
+            for (Utente u : utenti) {
+                System.out.println(u.toString()); // Presupponendo che Utente abbia un toString() valido
+            }
+        }
+    }
 }
 
 
